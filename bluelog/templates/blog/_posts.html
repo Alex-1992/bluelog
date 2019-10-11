@@ -12,7 +12,12 @@
             <span class="float-right">{{ moment(post.timestamp).format('LL') }}</span>
         </small>
         {% if not loop.last %}
-            <hr>
+            
+            {% if request.cookies.get('theme', 'black_swan') == 'black_swan'%}
+            <hr color="white">
+            {% else %}
+            <hr color="black">
+            {% endif %}
         {% endif %}
     {% endfor %}
 {% else %}

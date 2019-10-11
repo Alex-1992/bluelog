@@ -65,7 +65,10 @@ def show_post(post_id):
     if form.validate_on_submit():
         author = form.author.data
         email = form.email.data
-        site = form.site.data
+        if hasattr(form, 'site'):
+            site = form.site.data
+        else:
+            site = ''
         body = form.body.data
         comment = Comment(
             author=author, email=email, site=site, body=body,

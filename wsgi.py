@@ -8,5 +8,7 @@ if os.path.exists(dotenv_path):
 
 from bluelog import create_app  # noqa
 
-app = create_app('production')
-app.wsgi_app = ProxyFix(app.wsgi_app)
+# config_name = os.getenv('FLASK_CONFIG', 'development')
+if os.getenv('FLASK_CONFIG') == 'production':
+    app = create_app('production')
+    app.wsgi_app = ProxyFix(app.wsgi_app)
