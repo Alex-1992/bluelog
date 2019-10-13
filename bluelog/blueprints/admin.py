@@ -93,13 +93,13 @@ def delete_post(post_id):
     post = Post.query.get_or_404(post_id)
 
     #TODO 删除post用到的图片
-    pattern = re.compile(r'src="/(.*?)"')
-    results = pattern.findall(post.body)
-    for result in results:
-        path = result
-        print(path)
-        if(os.path.exists(path)):
-            os.remove(path)
+    pattern = re.compile(r'uploads/(.*?)"')
+    names = pattern.findall(post.body)
+    print('----------------------->')
+    os.chdir('/home/yyf1992/bluelog/uploads/')
+    for name in names:
+        if(os.path.exists(name)):
+            os.remove(name)
             print('删除图片成功！')
         else:
             print('要删除的图片不存在')
