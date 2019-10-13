@@ -1,5 +1,10 @@
 {% if posts %}
     {% for post in posts %}
+        {% if request.cookies.get('theme', 'black_swan') == 'black_swan'%}
+            <hr color="white">
+        {% else %}
+            <hr color="black">
+        {% endif %}
         <h3 class="text-primary"><a href="{{ url_for('.show_post', post_id=post.id) }}">{{ post.title }}</a></h3>
         <p>
             {{ post.body|striptags|truncate }}
@@ -11,14 +16,6 @@
                 href="{{ url_for('.show_category', category_id=post.category.id) }}">{{ post.category.name }}</a>
             <span class="float-right">{{ moment(post.timestamp).format('LL') }}</span>
         </small>
-        {% if not loop.last %}
-            
-            {% if request.cookies.get('theme', 'black_swan') == 'black_swan'%}
-            <hr color="white">
-            {% else %}
-            <hr color="black">
-            {% endif %}
-        {% endif %}
     {% endfor %}
 {% else %}
     <div class="tip">
