@@ -93,7 +93,7 @@ def delete_post(post_id):
     post = Post.query.get_or_404(post_id)
 
     #TODO 删除post用到的图片
-    pattern = re.compile(r'src="/admin/(.*?)"')
+    pattern = re.compile(r'src="/(.*?)"')
     results = pattern.findall(post.body)
     for result in results:
         path = result
