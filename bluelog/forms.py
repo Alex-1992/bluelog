@@ -25,6 +25,7 @@ class SettingForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired(), Length(1, 30)])
     blog_title = StringField('Blog Title', validators=[DataRequired(), Length(1, 60)])
     blog_sub_title = StringField('Blog Sub Title', validators=[DataRequired(), Length(1, 100)])
+    post_before_view = BooleanField('Comment Check Before Post')
     about = CKEditorField('About Page', validators=[DataRequired()])
     submit = SubmitField()
 

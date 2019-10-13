@@ -13,6 +13,7 @@ from bluelog.extensions import db
 from bluelog.forms import CommentForm, AdminCommentForm
 from bluelog.models import Post, Category, Comment
 from bluelog.utils import redirect_back
+from bluelog.models import Admin
 
 blog_bp = Blueprint('blog', __name__)
 
@@ -49,7 +50,7 @@ def show_post(post_id):
     pagination = Comment.query.with_parent(post).filter_by(reviewed=True).order_by(Comment.timestamp.asc()).paginate(
         page, per_page)
     comments = pagination.items
-
+    admin =  Admin.query.first()
     if current_user.is_authenticated:
         form = AdminCommentForm()
         form.author.data = current_user.name
@@ -57,18 +58,23 @@ def show_post(post_id):
         form.site.data = url_for('.index')
         from_admin = True
         reviewed = True
-    else:
+    elif admin.post_before_view:
         form = CommentForm()
         from_admin = False
         reviewed = False
+    else:
+        form = CommentForm()
+        from_admin = False
+        reviewed = True
+    # else:
+    #     form = CommentForm()
+    #     from_admin = False
+    #     reviewed = False
 
     if form.validate_on_submit():
         author = form.author.data
         email = form.email.data
-        if hasattr(form, 'site'):
-            site = form.site.data
-        else:
-            site = ''
+        site = form.site.data if 'site' in form else ''
         body = form.body.data
         comment = Comment(
             author=author, email=email, site=site, body=body,
@@ -80,7 +86,7 @@ def show_post(post_id):
             send_new_reply_email(replied_comment)
         db.session.add(comment)
         db.session.commit()
-        if current_user.is_authenticated:  # send message based on authentication status
+        if current_user.is_authenticated or not admin.post_before_view:  # send message based on authentication status
             flash('Comment published.', 'success')
         else:
             flash('Thanks, your comment will be published after reviewed.', 'info')

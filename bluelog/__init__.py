@@ -190,7 +190,9 @@ def register_commands(app):
         """Generate fake data."""
         from bluelog.fakes import fake_admin, fake_categories, fake_posts, fake_comments, fake_links
 
+        click.echo('dropping old database...')
         db.drop_all()
+        click.echo('creating new database...')
         db.create_all()
 
         click.echo('Generating the administrator...')

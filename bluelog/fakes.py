@@ -113,9 +113,10 @@ def fake_comments(count=500):
 
 
 def fake_links():
+    github = Link(name='Github', url='https://github.com/alex-1992')
     twitter = Link(name='Twitter', url='#')
     facebook = Link(name='Facebook', url='#')
-    linkedin = Link(name='LinkedIn', url='#')
-    google = Link(name='Google+', url='#')
+    # linkedin = Link(name='LinkedIn', url='#')
+    # google = Link(name='Google+', url='#')
     db.session.add_all([twitter, facebook, linkedin, google])
     db.session.commit()

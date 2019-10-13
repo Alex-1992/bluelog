@@ -20,6 +20,7 @@ class Admin(db.Model, UserMixin):
     blog_title = db.Column(db.String(60))
     blog_sub_title = db.Column(db.String(100))
     name = db.Column(db.String(30))
+    post_before_view = db.Column(db.Boolean, default=False)
     about = db.Column(db.Text)
 
     def set_password(self, password):

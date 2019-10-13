@@ -15,7 +15,7 @@ from bluelog.extensions import db
 from bluelog.forms import SettingForm, PostForm, CategoryForm, LinkForm
 from bluelog.models import Post, Category, Comment, Link
 from bluelog.utils import redirect_back, allowed_file
-
+import re
 admin_bp = Blueprint('admin', __name__)
 
 
@@ -27,6 +27,7 @@ def settings():
         current_user.name = form.name.data
         current_user.blog_title = form.blog_title.data
         current_user.blog_sub_title = form.blog_sub_title.data
+        current_user.post_before_view = form.post_before_view.data
         current_user.about = form.about.data
         db.session.commit()
         flash('Setting updated.', 'success')
@@ -34,6 +35,7 @@ def settings():
     form.name.data = current_user.name
     form.blog_title.data = current_user.blog_title
     form.blog_sub_title.data = current_user.blog_sub_title
+    form.post_before_view.data = current_user.post_before_view
     form.about.data = current_user.about
     return render_template('admin/settings.html', form=form)
 
@@ -89,6 +91,19 @@ def edit_post(post_id):
 @login_required
 def delete_post(post_id):
     post = Post.query.get_or_404(post_id)
+
+    #TODO 删除post用到的图片
+    pattern = re.compile(r'src="/admin/(.*?)"')
+    results = pattern.findall(post.body)
+    for result in results:
+        path = result
+        print(path)
+        if(os.path.exists(path)):
+            os.remove(path)
+            print('删除图片成功！')
+        else:
+            print('要删除的图片不存在')
+
     db.session.delete(post)
     db.session.commit()
     flash('Post deleted.', 'success')
