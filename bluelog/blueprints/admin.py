@@ -96,8 +96,11 @@ def delete_post(post_id):
     pattern = re.compile(r'uploads/(.*?)"')
     names = pattern.findall(post.body)
     print('----------------------->')
-    os.chdir('/home/yyf1992/bluelog/uploads/')
+    os.chdir( os.getcwd()+'/bluelog/uploads/')
     for name in names:
+        # path = os.getcwd()+'/bluelog/uploads/'+name
+        # path = 'bluelog/uploads/'+name
+        # print(path)
         if(os.path.exists(name)):
             os.remove(name)
             print('删除图片成功！')
