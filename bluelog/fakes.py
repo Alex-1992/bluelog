@@ -118,5 +118,5 @@ def fake_links():
     facebook = Link(name='Facebook', url='#')
     # linkedin = Link(name='LinkedIn', url='#')
     # google = Link(name='Google+', url='#')
-    db.session.add_all([twitter, facebook, linkedin, google])
+    db.session.add_all([github, twitter, facebook])
     db.session.commit()
