@@ -65,13 +65,5 @@ CKEDITOR.editorConfig = function (config) {
 
 	// Simplify the dialog windows.
 	config.removeDialogTabs = 'image:advanced;link:advanced';
-
-	//添加插件，多个插件用逗号隔开
-	config.extraPlugins = 'codesnippet';
-	//使用zenburn的代码高亮风格样式 PS:zenburn效果就是黑色背景
-	//如果不设置着默认风格为default
-	//config.codeSnippet_theme = 'vs';
-
+	config.extraPlugins = 'markdown';
 };
-
-//CKEDITOR.addCss(".cke_editable{background-color: #1774c8}");
