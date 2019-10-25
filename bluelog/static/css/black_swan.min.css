@@ -213,20 +213,7 @@ a:not([href]):not([tabindex]):focus {
     outline: 0
 }
 
-pre,
-code,
-kbd,
-samp {
-    font-family: monospace, monospace;
-    font-size: 1em
-}
 
-pre {
-    margin-top: 0;
-    margin-bottom: 1rem;
-    overflow: auto;
-    -ms-overflow-style: scrollbar
-}
 
 figure {
     margin: 0 0 1rem
@@ -549,18 +536,9 @@ mark,
     color: #999
 }
 
-code,
-kbd,
-pre,
-samp {
-    font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace
-}
 
-code {
-    font-size: 87.5%;
-    color: #e83e8c;
-    word-break: break-word
-}
+
+
 
 a>code {
     color: inherit
@@ -10174,6 +10152,24 @@ a.text-dark:focus {
     color: #fff
 }
 
+code,
+kbd,
+pre,
+samp {
+    font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    background-color: rgba(0, 0, 0, 0.075);
+    color: rgb(5, 255, 213);
+    font-size: 100%
+}
 code {
-    background-color: #A0EEE1;
+font-family: SFMono-Regular,
+Menlo,
+Monaco,
+Consolas,
+"Liberation Mono",
+"Courier New",
+monospace;
+background-color: rgba(0, 0, 0, 0.075);
+color: rgb(5, 255, 213);
+font-size: 100%
 }
